@@ -1,0 +1,13 @@
+{
+  "tauri": {
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": false,
+        "title": "Simple Chess",
+        "width": 512,
+        "height": 540
+      }
+    ]
+  }
+}
