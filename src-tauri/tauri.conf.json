@@ -36,10 +36,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "resizable": true,
-        "title": "chess",
-        "width": 800,
-        "height": 600
+        "resizable": false,
+        "title": "Simple Chess",
+        "width": 512,
+        "height": 540
       }
     ]
   }
