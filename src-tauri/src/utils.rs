@@ -174,13 +174,13 @@ pub fn toAlgebraic(location: (u16, u16)) -> String {
         7 => rank = '8',
         _ => {}
     }
-    return format!("{}{}", file, rank);
+    format!("{}{}", file, rank)
 }
 
 pub fn fromAlgebraic(location: String) -> (u16, u16) {
     let mut chars = location.chars();
-    let mut file = chars.next().unwrap();
-    let mut rank = chars.next().unwrap();
+    let file = chars.next().unwrap();
+    let rank = chars.next().unwrap();
     let mut file_num = 0;
     let mut rank_num = 0;
     match file {
@@ -205,5 +205,5 @@ pub fn fromAlgebraic(location: String) -> (u16, u16) {
         '8' => rank_num = 7,
         _ => {}
     }
-    return (file_num, rank_num);
+    (file_num, rank_num)
 }

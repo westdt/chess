@@ -3,7 +3,7 @@
 
 use log::LevelFilter;
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, env, thread::sleep};
+use std::{collections::HashMap, env};
 use tauri::Window;
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use utils::{fromAlgebraic, toAlgebraic};
@@ -37,25 +37,25 @@ struct Piece {
 
 impl Piece {
     fn new(color: u16, kind: u16, x: u16, y: u16) -> Piece {
-        return Piece {
+        Piece {
             value: (color << 12) | (kind << 8) | (x << 4) | y,
-        };
+        }
     }
 
     fn color(&self) -> u16 {
-        return (self.value & MASK_COLOR) >> 12;
+        (self.value & MASK_COLOR) >> 12
     }
 
     fn kind(&self) -> u16 {
-        return (self.value & MASK_TYPE) >> 8;
+        (self.value & MASK_TYPE) >> 8
     }
 
     fn x(&self) -> u16 {
-        return (self.value & MASK_X) >> 4;
+        (self.value & MASK_X) >> 4
     }
 
     fn y(&self) -> u16 {
-        return self.value & MASK_Y;
+        self.value & MASK_Y
     }
 }
 
@@ -69,12 +69,12 @@ struct Element {
 
 impl Element {
     fn new(id: String, kind: String) -> Element {
-        return Element {
-            id: id,
-            kind: kind,
+        Element {
+            id,
+            kind,
             attributes: HashMap::new(),
             properties: HashMap::new(),
-        };
+        }
     }
 
     fn set_attribute(&mut self, attribute: String, value: String) {
@@ -85,7 +85,7 @@ impl Element {
         self.properties.insert(property, value);
     }
 
-    fn style(&self, style: String, value: String) {
+    fn style(&self, _style: String, _value: String) {
         //self.window.emit("style-element", (self.id, style, value)).unwrap();
     }
 
@@ -106,8 +106,8 @@ fn select_move(location: String) -> Vec<Element> {
     let x = location.0;
     let y = location.1;
 
-    let mut new_location = SELECTED | (x << 4) | y;
-    if (new_location == unsafe { SELECTED_LOCATION }) {
+    let new_location = SELECTED | (x << 4) | y;
+    if new_location == unsafe { SELECTED_LOCATION } {
         unsafe { SELECTED_LOCATION = NOT_SELECTED };
     } else {
         unsafe { SELECTED_LOCATION = new_location };
@@ -154,11 +154,11 @@ fn select_move(location: String) -> Vec<Element> {
         }*/
     }
 
-    return elements;
+    elements
 }
 
 #[tauri::command]
-fn setup_board(window: Window) -> Vec<Element> {
+fn setup_board(_window: Window) -> Vec<Element> {
     let mut elements: Vec<Element> = Vec::new();
 
     for i in 0..8 {
@@ -289,7 +289,7 @@ fn setup_board(window: Window) -> Vec<Element> {
     elements.push(element);
 
 
-    return elements;
+    elements
 }
 
 /*#[tauri::command]
@@ -307,7 +307,7 @@ fn init_process(window: Window) {
 fn main() {
     env::set_var("RUST_BACKTRACE", "1");
 
-    let _tauri = tauri::Builder::default()
+    tauri::Builder::default()
         .plugin(
             tauri_plugin_log::Builder::default()
                 .with_colors(ColoredLevelConfig::default())
