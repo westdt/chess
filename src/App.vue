@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { info, error, toAlgebraic, fromAlgebraic } from "./utils.ts"
+import { info, error, toAlgebraic, fromAlgebraic, selectMove } from "./utils.ts"
 
 import Board from "./components/Board.vue"
 import { invoke } from "@tauri-apps/api";
@@ -46,7 +46,13 @@ function mouseLeave() {
 	highlight.style.display = "none";
 }
 
-function onClick(event: MouseEvent) {
+async function onClick(event: MouseEvent) {
+	let x = Math.floor(event.clientX / 64);
+	let y = Math.floor(event.clientY / 64);
+
+	selectMove(x, y);
+
+	/*
 	let selected = document.getElementById("selected");
 
 	if (selected == null) {
@@ -88,6 +94,7 @@ function onClick(event: MouseEvent) {
 
 		selectedPosition = algebraic.toString();
 	}
+	*/
 }
 </script>
 

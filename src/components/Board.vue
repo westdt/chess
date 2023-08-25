@@ -15,8 +15,6 @@ import Square from "./Square.vue"
 img {
 	display: block;
 	position: absolute;
-	left: -64px;
-	top: -64px;
 }
 
 body {
@@ -31,13 +29,8 @@ body {
 	grid-template-columns: auto auto auto auto auto auto auto auto;
 }
 
-#selected {
+.highlighted {
 	position: absolute;
-	background-color: rgb(0, 191, 255);
 	opacity: 0.6;
-}
-
-.allowed {
-	border: 2px solid green;
 }
 </style>
