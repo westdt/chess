@@ -1,25 +1,8 @@
 import * as Utils from "./utils.ts";
 
+import { resolveResource } from '@tauri-apps/api/path'
+
 let board;
-
-export function execute(this: any, events: any) {
-	//Utils.debug("Executing events: " + JSON.stringify(events));
-
-	let call = false;
-
-	// execute a list of events
-	for (let event of events) {
-		Utils.trace("Called from Rust: " + event.function + JSON.stringify(event.arguments));
-		try {
-			call = eval(event.function).call(this, ...event.arguments);
-		} catch (e) {
-			Utils.error("Error calling function " + event.function + ": " + e + ". Ensure the function is in scope.");
-			//return false;
-		}
-	}
-
-	return call;
-}
 
 function removePiece(id: string) {
 	let element = document.getElementById(id);
@@ -105,4 +88,46 @@ function createHighlight(x: string, y: string, kind: number) {
 
 function saveBoard(board: any) {
 	return board;
+}
+
+export function execute(this: any, events: any) {
+	//Utils.debug("Executing events: " + JSON.stringify(events));
+
+	let call = false;
+
+	// execute a list of events
+	for (let event of events) {
+		Utils.trace("Called from Rust: " + event.function + JSON.stringify(event.arguments));
+		switch (event.function) {
+			case "removePiece":
+				removePiece(event.arguments[0]);
+				break;
+			case "movePiece":
+				movePiece(event.arguments[0], event.arguments[1]);
+				break;
+			case "createPiece":
+				createPiece(event.arguments[0], event.arguments[1], event.arguments[2], event.arguments[3]);
+				break;
+			case "removeHighlights":
+				removeHighlights();
+				break;
+			case "createHighlight":
+				createHighlight(event.arguments[0], event.arguments[1], event.arguments[2]);
+				break;
+			case "saveBoard":
+				saveBoard(event.arguments[0]);
+				break;
+			default:
+				Utils.debug("Unknown function: " + event.function);
+				break;
+		}
+		/*try {
+			call = eval(event.function).call(this, ...event.arguments);
+		} catch (e) {
+
+			//return false;
+		}*/
+	}
+
+	return call;
 }

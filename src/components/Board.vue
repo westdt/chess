@@ -6,6 +6,8 @@ import Square from "./Square.vue"
 	<div id="grid-container">
 		<Square v-for="i in 64" :key="i" :color="(i + (Math.floor((i - 1) / 8))) % 2 == 0 ? 'black' : 'white'" />
 		<Square :color="'highlight'" id="highlight" /> <!-- This is the highlight square -->
+
+
 	</div>
 </template>
 

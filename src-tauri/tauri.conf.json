@@ -16,6 +16,12 @@
 			"shell": {
 				"all": false,
 				"open": true
+			},
+			"fs": {
+				"scope": [
+					"$RESOURCE/*"
+				],
+				"all": true
 			}
 		},
 		"bundle": {
@@ -29,9 +35,7 @@
 				"icons/icon.icns",
 				"icons/icon.ico"
 			],
-			"resources": [
-				"assets/**"
-			]
+			"resources": []
 		},
 		"security": {
 			"csp": null
