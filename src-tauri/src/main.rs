@@ -1437,7 +1437,7 @@ fn create_highlight(x: i16, y: i16, kind: i16) -> JsRequest {
 
 fn create_piece(piece: String, x: i16, y: i16) -> JsRequest {
     let id = to_algebraic((x, y));
-    let svg_path = "src/assets/pieces/".to_string() + &piece + ".svg";
+    let svg_path = "src-tauri/assets/pieces/".to_string() + &piece + ".svg";
     let x_in_px = (x * 64).to_string() + "px";
     let y_in_px = (y * 64).to_string() + "px";
     JsRequest::new("createPiece".to_string())
