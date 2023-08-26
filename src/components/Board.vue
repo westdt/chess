@@ -4,17 +4,17 @@ import Square from "./Square.vue"
 
 <template>
 	<div id="grid-container">
-		<Square v-for="i in 64" :key="i" :color="(i + (Math.floor((i - 1) / 8))) % 2 == 0 ? 'black' : 'white'"/>
-		<Square :color="'highlight'" id="highlight"/> <!-- This is the highlight square -->
+		<Square v-for="i in 64" :key="i" :color="(i + (Math.floor((i - 1) / 8))) % 2 == 0 ? 'black' : 'white'" />
+		<Square :color="'highlight'" id="highlight" /> <!-- This is the highlight square -->
 	</div>
-
-	
 </template>
 
 <style>
 img {
 	display: block;
 	position: absolute;
+
+	transition: all 0.2s ease-out;
 }
 
 body {

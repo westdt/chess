@@ -149,7 +149,7 @@ pub fn js_trace(message: String) {
     trace!(target: "JavaScript", "{}", message);
 }
 
-pub fn toAlgebraic(location: (u16, u16)) -> String {
+pub fn to_algebraic(location: (i16, i16)) -> String {
     let mut file = 'a';
     let mut rank = '1';
     match location.0 {
@@ -177,7 +177,38 @@ pub fn toAlgebraic(location: (u16, u16)) -> String {
     format!("{}{}", file, rank)
 }
 
-pub fn fromAlgebraic(location: String) -> (u16, u16) {
+pub fn from_algebraic(location: String) -> (i16, i16) {
+    let mut chars = location.chars();
+    let file = chars.next().unwrap();
+    let rank = chars.next().unwrap();
+    let mut file_num = 0;
+    let mut rank_num = 0;
+    match file {
+        'a' => file_num = 0,
+        'b' => file_num = 1,
+        'c' => file_num = 2,
+        'd' => file_num = 3,
+        'e' => file_num = 4,
+        'f' => file_num = 5,
+        'g' => file_num = 6,
+        'h' => file_num = 7,
+        _ => {}
+    }
+    match rank {
+        '1' => rank_num = 0,
+        '2' => rank_num = 1,
+        '3' => rank_num = 2,
+        '4' => rank_num = 3,
+        '5' => rank_num = 4,
+        '6' => rank_num = 5,
+        '7' => rank_num = 6,
+        '8' => rank_num = 7,
+        _ => {}
+    }
+    (file_num, rank_num)
+}
+
+pub fn from_algebraic_str(location: &str) -> (i16, i16) {
     let mut chars = location.chars();
     let file = chars.next().unwrap();
     let rank = chars.next().unwrap();

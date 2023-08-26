@@ -2,6 +2,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { info, error, toAlgebraic, fromAlgebraic, selectMove } from "./utils.ts"
+import * as Rust from "./rust.ts"
 
 import Board from "./components/Board.vue"
 import { invoke } from "@tauri-apps/api";
@@ -32,7 +33,7 @@ function mouseMove(event: MouseEvent) {
 
 	highlight.style.display = "block";
 	highlight.style.left = Math.floor(event.clientX / 64) * 64 + "px";
-	highlight.style.top = Math.floor(event.clientY / 64) * 64 + "px";
+	highlight.style.bottom = (7 - Math.floor(event.clientY / 64)) * 64 + "px";
 }
 
 function mouseLeave() {
@@ -46,11 +47,19 @@ function mouseLeave() {
 	highlight.style.display = "none";
 }
 
+let oldX = -1;
+let oldY = -1;
+
 async function onClick(event: MouseEvent) {
 	let x = Math.floor(event.clientX / 64);
-	let y = Math.floor(event.clientY / 64);
+	let y = 7 - Math.floor(event.clientY / 64);
 
-	selectMove(x, y);
+
+
+	selectMove(oldX, oldY, x, y);
+
+	oldX = x;
+	oldY = y;
 
 	/*
 	let selected = document.getElementById("selected");
@@ -114,7 +123,9 @@ async function onClick(event: MouseEvent) {
 	user-select: none;
 }
 
-*, *:hover, *:active, *:focus {
+*,
+*:hover,
+*:active,
+*:focus {
 	cursor: default;
-}
-</style>
+}</style>

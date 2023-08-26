@@ -1,7 +1,8 @@
 import { createApp } from "vue";
-import "./styles.css";
 import App from "./App.vue"
-import { error, warn, info, debug, trace, setupBoard} from "./utils.ts"
+import { error, warn, info, debug, trace } from "./utils.ts"
+import * as Utils from "./utils.ts";
+import * as Rust from "./rust.ts";
 
 import { invoke } from "@tauri-apps/api";
 import { emit, listen } from '@tauri-apps/api/event'
@@ -13,15 +14,11 @@ app.mount("#app");
 
 //document.addEventListener('contextmenu', event => event.preventDefault());
 
-let setup = await setupBoard();
-
-if (!setup) {
-	error("Error setting up board");
-} else { 
-	info("Board setup successfully");
-}
+Rust.execute(await invoke('setup_board'));
+Rust.execute(await invoke("get_events"));
 
 while (1) {
+
 	const eventCreateElement = await listen('create-element', (event) => {
 		debug("received create-element event from Rust");
 		let id = event.payload[0];
