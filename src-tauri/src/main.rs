@@ -25,6 +25,8 @@ static mut BOARD: Board = Board {
     selected_piece: None,
 };
 
+#[derive(TS)]
+#[ts(export, export_to = "../src/bindings/GameState.ts")]
 enum GameState {
     Playing,
     WhiteCheck,
@@ -33,6 +35,20 @@ enum GameState {
     BlackCheckmate,
     Stalemate,
     Error,
+}
+
+impl fmt::Display for GameState {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		match self {
+			GameState::Playing => write!(f, "Playing"),
+			GameState::WhiteCheck => write!(f, "WhiteCheck"),
+			GameState::BlackCheck => write!(f, "BlackCheck"),
+			GameState::WhiteCheckmate => write!(f, "WhiteCheckmate"),
+			GameState::BlackCheckmate => write!(f, "BlackCheckmate"),
+			GameState::Stalemate => write!(f, "Stalemate"),
+			GameState::Error => write!(f, "Error"),
+		}
+	}
 }
 
 #[derive(TS)]
@@ -710,6 +726,7 @@ enum JsFunction {
     DeleteHighlights,
 
 	CallChessBot,
+	GameOver
 }
 
 #[derive(Serialize)]
@@ -1026,14 +1043,15 @@ fn select(location: String) -> Vec<JsRequest> {
         }
     }
 
-    let game_state = board.get_game_state();
+    let mut game_state_requests = get_game_state_request(&board);
+	requests.append(&mut game_state_requests);
 
-	if board.turn == PieceColor::Black {
+	/*if board.turn == PieceColor::Black {
 		requests.push(JsRequest {
 			jsfunction: JsFunction::CallChessBot,
 			args: vec![],
 		});
-	}
+	}*/
 
     unsafe {
         BOARD = board;
@@ -1042,6 +1060,31 @@ fn select(location: String) -> Vec<JsRequest> {
     requests
 }
 
+fn get_game_state_request(board: &Board) -> Vec<JsRequest> {
+	let mut requests = Vec::new();
+	let game_state = board.get_game_state();
+
+	let mut send_request = false;
+
+	match game_state {
+		GameState::Playing => {},
+		GameState::Error => {},
+		GameState::WhiteCheck => {},
+		GameState::BlackCheck => {},
+		_ => {
+			send_request = true;
+		}
+	}
+
+	if send_request {
+		requests.push(JsRequest {
+			jsfunction: JsFunction::GameOver,
+			args: vec![game_state.to_string()],
+		});
+	}
+
+	requests
+}
 
 
 #[tauri::command]
@@ -1131,6 +1174,9 @@ fn chess_bot() -> Vec<JsRequest> {
 	requests.append(&mut execute);
 
 	board.turn = board.turn.opposite();
+
+	let mut game_state_requests = get_game_state_request(&board);
+	requests.append(&mut game_state_requests);
 
 	unsafe {
 		BOARD = board;

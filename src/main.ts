@@ -3,6 +3,7 @@ import { JsFunction } from "./bindings/JsFunction";
 import { PieceColor } from "./bindings/PieceColor";
 import { PieceType } from "./bindings/PieceType";
 import * as Utils from "./utils";
+import { GameState } from "./bindings/GameState";
 
 let ORIGIN_X = 0;
 let ORIGIN_Y = 0;
@@ -129,6 +130,81 @@ function deleteHighlights() {
 	}
 }
 
+function gameOver(gameState: GameState) {
+	switch (gameState) {
+		case "WhiteCheckmate":
+			Utils.info("White checkmate!");
+
+			let board_ele = document.getElementById("board");
+			let gameOver_ele = document.createElement("div");
+			gameOver_ele.id = "gameover";
+			gameOver_ele.style.opacity = "0";
+
+			let message_ele = document.createElement("h1");
+			message_ele.innerText = "White wins!";
+			message_ele.style.opacity = "0";
+
+			if (board_ele) {
+				board_ele.appendChild(gameOver_ele);
+				gameOver_ele.appendChild(message_ele);
+
+				// fade in
+				gameOver_ele.style.opacity = "1";
+				message_ele.style.opacity = "1";
+			}
+
+			break;
+		case "BlackCheckmate":
+			Utils.info("Black checkmate!");
+
+			let board = document.getElementById("board");
+			let gameOver = document.createElement("div");
+			gameOver.id = "gameover";
+			gameOver.style.opacity = "0";
+
+			let message = document.createElement("h1");
+			message.innerText = "White wins!";
+			message.style.opacity = "0";
+
+			if (board) {
+				board.appendChild(gameOver);
+				gameOver.appendChild(message);
+
+				// fade in
+				gameOver.style.opacity = "1";
+				message.style.opacity = "1";
+			}
+
+			break;
+		case "Stalemate":
+			Utils.info("Stalemate!");
+
+			Utils.info("Black checkmate!");
+
+			let board2 = document.getElementById("board");
+			let gameOver2 = document.createElement("div");
+			gameOver2.id = "gameover";
+			gameOver2.style.opacity = "0";
+
+			let message2 = document.createElement("h1");
+			message2.innerText = "Stalemate!";
+			message2.style.opacity = "0";
+
+			if (board2) {
+				board2.appendChild(gameOver2);
+				gameOver2.appendChild(message2);
+
+				// fade in
+				gameOver2.style.opacity = "1";
+				message2.style.opacity = "1";
+			}
+
+			break;
+		default:
+			break;
+	}
+}
+
 function processRustRequest(jsfunction: JsFunction, args: any[]) {
 	//Utils.info("Processing request: " + JSON.stringify(jsfunction));
 	switch (jsfunction) {
@@ -160,6 +236,9 @@ function processRustRequest(jsfunction: JsFunction, args: any[]) {
 			invoke("chess_bot").then((requests) => {
 				processRustRequests(requests);
 			});
+			break;
+		case "GameOver":
+			gameOver(args[0]);
 			break;
 		default:
 			break;
