@@ -1046,12 +1046,12 @@ fn select(location: String) -> Vec<JsRequest> {
     let mut game_state_requests = get_game_state_request(&board);
 	requests.append(&mut game_state_requests);
 
-	/*if board.turn == PieceColor::Black {
+	if board.turn == PieceColor::Black {
 		requests.push(JsRequest {
 			jsfunction: JsFunction::CallChessBot,
 			args: vec![],
 		});
-	}*/
+	}
 
     unsafe {
         BOARD = board;
