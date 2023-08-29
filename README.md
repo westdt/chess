@@ -1,7 +1,6 @@
 # Chess
 A very simple chess game with a chess bot to play against.
-## Purpose
-The purpose of this project is threefold: learning, demonstrating my skills, and just having fun.
+The purpose of this project is threefold: learning, demonstrating my skills, and just having fun. As of right now, it's really just a project I made in my free time in 1 week. There are a lot of changes I would have made if this was intended to be an application for other people's use. Since it is just a fun project there are liberties I have taken here that I would not normally take.
 #### Learning
 - Learn Rust better: Rust is a language that I have been interested ever since I learned about it. Previously I had learned Java before moving onto C/C++ since I was interested in video game development. I really fell in love with C because it was so stripped down compared to the bloat of Java, however C has many many problems that have since been solved by other languages. I view Rust as the successor to C in many ways and I think that Rust has a very bright future ahead of it.
 
