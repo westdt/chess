@@ -1,0 +1,55 @@
+#board {
+	display: grid;
+	position: absolute;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+}
+
+.white {
+	background-color: white;
+}
+
+.black {
+	background-color: black;
+}
+
+#mouse-highlight {
+	display: block;
+	position: absolute;
+
+	background-color: gray;
+	opacity: 0.2;
+}
+
+.highlight {
+	display: block;
+	position: absolute;
+}
+
+.piece {
+	display: block;
+	position: absolute;
+	z-index: 1;
+
+	transition: all 0.2s ease-out;
+}
+
+* {
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	overflow: hidden;
+}
+
+*,
+*:hover,
+*:active,
+*:focus {
+	cursor: default;
+}

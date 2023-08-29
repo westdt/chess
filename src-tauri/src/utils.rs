@@ -1,3 +1,5 @@
+const JS: &str = "React";
+
 /// Logs a message at the error level.
 ///
 /// # Examples
@@ -126,115 +128,25 @@ macro_rules! trace {
 
 #[tauri::command]
 pub fn js_error(message: String) {
-    error!(target: "JavaScript", "{}", message);
+    error!(target: JS, "{}", message);
 }
 
 #[tauri::command]
 pub fn js_warn(message: String) {
-    warn!(target: "JavaScript", "{}", message);
+    warn!(target: JS, "{}", message);
 }
 
 #[tauri::command]
 pub fn js_info(message: String) {
-    info!(target: "JavaScript", "{}", message);
+    info!(target: JS, "{}", message);
 }
 
 #[tauri::command]
 pub fn js_debug(message: String) {
-    debug!(target: "JavaScript", "{}", message);
+    debug!(target: JS, "{}", message);
 }
 
 #[tauri::command]
 pub fn js_trace(message: String) {
-    trace!(target: "JavaScript", "{}", message);
-}
-
-pub fn to_algebraic(location: (i16, i16)) -> String {
-    let mut file = 'a';
-    let mut rank = '1';
-    match location.0 {
-        0 => file = 'a',
-        1 => file = 'b',
-        2 => file = 'c',
-        3 => file = 'd',
-        4 => file = 'e',
-        5 => file = 'f',
-        6 => file = 'g',
-        7 => file = 'h',
-        _ => {}
-    }
-    match location.1 {
-        0 => rank = '1',
-        1 => rank = '2',
-        2 => rank = '3',
-        3 => rank = '4',
-        4 => rank = '5',
-        5 => rank = '6',
-        6 => rank = '7',
-        7 => rank = '8',
-        _ => {}
-    }
-    format!("{}{}", file, rank)
-}
-
-pub fn from_algebraic(location: String) -> (i16, i16) {
-    let mut chars = location.chars();
-    let file = chars.next().unwrap();
-    let rank = chars.next().unwrap();
-    let mut file_num = 0;
-    let mut rank_num = 0;
-    match file {
-        'a' => file_num = 0,
-        'b' => file_num = 1,
-        'c' => file_num = 2,
-        'd' => file_num = 3,
-        'e' => file_num = 4,
-        'f' => file_num = 5,
-        'g' => file_num = 6,
-        'h' => file_num = 7,
-        _ => {}
-    }
-    match rank {
-        '1' => rank_num = 0,
-        '2' => rank_num = 1,
-        '3' => rank_num = 2,
-        '4' => rank_num = 3,
-        '5' => rank_num = 4,
-        '6' => rank_num = 5,
-        '7' => rank_num = 6,
-        '8' => rank_num = 7,
-        _ => {}
-    }
-    (file_num, rank_num)
-}
-
-pub fn from_algebraic_str(location: &str) -> (i16, i16) {
-    let mut chars = location.chars();
-    let file = chars.next().unwrap();
-    let rank = chars.next().unwrap();
-    let mut file_num = 0;
-    let mut rank_num = 0;
-    match file {
-        'a' => file_num = 0,
-        'b' => file_num = 1,
-        'c' => file_num = 2,
-        'd' => file_num = 3,
-        'e' => file_num = 4,
-        'f' => file_num = 5,
-        'g' => file_num = 6,
-        'h' => file_num = 7,
-        _ => {}
-    }
-    match rank {
-        '1' => rank_num = 0,
-        '2' => rank_num = 1,
-        '3' => rank_num = 2,
-        '4' => rank_num = 3,
-        '5' => rank_num = 4,
-        '6' => rank_num = 5,
-        '7' => rank_num = 6,
-        '8' => rank_num = 7,
-        _ => {}
-    }
-    (file_num, rank_num)
+    trace!(target: JS, "{}", message);
 }

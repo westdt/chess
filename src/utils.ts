@@ -1,29 +1,19 @@
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/tauri";
 
-import * as Rust from "./rust.ts"
-
-export async function selectMove(oldX: number, oldY: number, x: number, y: number) {
-	try {
-		debug("Selecting move: " + toAlgebraic(x, y));
-		let result = await invoke('select_move', { location: toAlgebraic(x, y) });
-		Rust.execute(result);
-
-	} catch (e) {
-		error("Error selecting move: " + e);
-		return false
-	}
-
-	return true;
-}
-
-export function toAlgebraic(x: number, y: number) {
+export function toAlgebraic(location: number) {
 	// convert a square to algebraic notation
+	let x = location % 8;
+	let y = Math.floor(location / 8);
+
 	return String.fromCharCode(x + 97) + (y + 1);
 }
 
 export function fromAlgebraic(s: string) {
 	// convert algebraic notation to a square
-	return [s.charCodeAt(0) - 97, parseInt(s[1]) - 1];
+	let x = s.charCodeAt(0) - 97;
+	let y = parseInt(s.charAt(1)) - 1;
+
+	return x + 8 * y;
 }
 
 export function error(message: string) {
