@@ -20,7 +20,7 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 - I have always wanted to write a chess bot. Now that I have written a frontend I can write one!
 
 ## Current Features
-- Chess move generation and validation
+- Chess move generation and validation (broken as of most recent update)
     - Normal moves
     - En passant
     - Castling
@@ -28,12 +28,13 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
     - Checkmate detection
 - Fully playable chess bot
     - Uses minimax algorithm with alpha-beta pruning
-- Simple plain TS/HTML/CSS frontend
+- React frontend
 - Rust backend
 
 ## Planned Features
-- Move to React: Plain TS/HTML/CSS was easier to whip something up quickly but I plan on moving it to React.
+- ✅ Move to React: Plain TS/HTML/CSS was easier to whip something up quickly but I plan on moving it to React.
 - Algebraic notation: Need to add a feature to detect moves and determine the appropriate notation.
 - Better chess bot: The current chess bot is very poor 😅 I plan to make it better and add book openings
-- Better bot support: I would like to be able to have different bots that can be easily selected and used.
+- ✅ Better bot support: I would like to be able to have different bots that can be easily selected and used.
 - Restructure/optimization: There are a lot of optimization and structure decisions I made for ease of coding, but these need to be fixed eventually.
+- Animations: Switching to React I had to temporarily sacrifice the animations I had in the previous version. I have an idea for how I can fix it but I just have not done it yet.
