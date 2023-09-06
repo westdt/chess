@@ -4,7 +4,7 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 #### Learning
 - Learn Rust better: Rust is a language that I have been interested ever since I learned about it. Previously I had learned Java before moving onto C/C++ since I was interested in video game development. I really fell in love with C because it was so stripped down compared to the bloat of Java, however C has many many problems that have since been solved by other languages. I view Rust as the successor to C in many ways and I think that Rust has a very bright future ahead of it.
 
-- Learn TypeScript and how to use it side-by-side with Rust: Learning JavaScript is something that almost every developer tries at some point. Most frontends use JavaScript and learning how to use it enables me to work on and understand thousands of frontends. Learning how to integrate this with Rust was a challenge that I approached in a very non-typical way.
+- Learn TypeScript and how to use it side-by-side with Rust: Learning JavaScript is something that almost every developer tries at some point. Most frontends use JavaScript and learning how to use it enables me to work on and understand thousands of frontends. Learning how to integrate this with Rust was a challenge that I approached in a very non-typical way at first, and then learned the proper way later.
  
 - ✨Tauri! ✨   Tauri is an amazing toolkit for implementing a frontend with a Rust backend as well as having many more features that I have yet to apply. In my opinion, Tauri is a real gamechanger and I see Rust + Tauri + React as being an extremely powerful and promising option for the future.
  
@@ -15,7 +15,7 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 
 - Rust : This project demonstrates my ability to code idiomatic Rust using key Rust features such as borrowing, match statements, and immutability, as well as just a general understanding of Rust's syntax.
 
-- Frontend: This project demonstrates my ability to write a simple frontend and have it send requests to the backend and then respond to those requests.
+- Frontend: This project demonstrates my ability to write a frontend in React, implementing events, state, etc.
 
 #### Having fun!
 - I do enjoy coding and learning all of these languages and how to implement them to create a functional chess game has been fun for me.
@@ -28,7 +28,7 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
     - En passant
     - Castling
     - Check validation
-    - Checkmate detection
+    - Checkmate detection (broken currently)
 - Fully playable chess bot
     - Uses minimax algorithm with alpha-beta pruning
 - React frontend
