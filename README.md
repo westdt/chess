@@ -20,7 +20,7 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 - I have always wanted to write a chess bot. Now that I have written a frontend I can write one!
 
 ## Current Features
-- Chess move generation and validation (broken as of most recent update)
+- Chess move generation and validation
     - Normal moves
     - En passant
     - Castling
@@ -36,6 +36,9 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 - Algebraic notation: Need to add a feature to detect moves and determine the appropriate notation.
 - Better chess bot: The current chess bot is very poor 😅 I plan to make it better and add book openings
 - ✅ Better bot support: I would like to be able to have different bots that can be easily selected and used.
-- Restructure/optimization: There are a lot of optimization and structure decisions I made for ease of coding, but these need to be fixed eventually.
-- Animations: Switching to React I had to temporarily sacrifice the animations I had in the previous version. I have an idea for how I can fix it but I just have not done it yet.
-- Async backend: AI needs to run asynchronously. Right now it is causing major problems by running synchronously.
+- Restructure/optimization: Need to restructure and create a better utility class that engines can be based on. Also need to have a translation layer between the backend and frontend (for example, "pid" is needed by React to keep track of piece elements, but it is completely useless as far as the actual chess code goes, meaning it is bloat on the engine.)
+- ✅ Animations: Switching to React I had to temporarily sacrifice the animations I had in the previous version. I have an idea for how I can fix it but I just have not done it yet.
+- ✅ Async backend: AI needs to run asynchronously. Right now it is causing major problems by running synchronously.
+
+# Dev notes
+- The main engine is not optimized at all. I would like to optimize it however the top priority for the main engine is accuracy/legibility, not speed. Realistically the entire purpose of this engine is just to have a 100% accurate system of verifying what moves are legitimate or not. AI engines _can_ be built on top of this, however it would be better if they had a faster backend and ONLY used the main engine for final verification. Maybe if I develop a better engine, I can eventually port that to the main engine, but it is not a priority now as long as the main engine functions accurately, since if it only needs to be run once for every turn, performance can be sacrificed.
