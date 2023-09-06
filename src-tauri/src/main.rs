@@ -8,19 +8,19 @@ use tauri::{PhysicalSize, Window};
 use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use ts_rs::TS;
 
-use crate::ai::{ChessAI, RandomAI, MinimaxAI};
+use crate::ai::{ChessAI, MinimaxAI, RandomAI};
 
 mod ai;
 mod utils;
 
 enum GameState {
-	Playing,
-	WhiteInCheck,
-	BlackInCheck,
-	WhiteInCheckmate,
-	BlackInCheckmate,
-	Stalemate,
-	Other
+    Playing,
+    WhiteInCheck,
+    BlackInCheck,
+    WhiteInCheckmate,
+    BlackInCheckmate,
+    Stalemate,
+    Other,
 }
 
 // PieceColor enum
@@ -370,7 +370,7 @@ impl Board {
             position: from,
             color: PieceColor::None,
             kind: PieceKind::None,
-            pid: -1
+            pid: -1,
         });
         self.set(Piece {
             position: to,
@@ -487,59 +487,202 @@ impl Board {
         true
     }
 
-	fn get_game_state(&self) -> GameState {
-		let mut white_in_check = false;
-		let mut black_in_check = false;
+    fn get_game_state(&self) -> GameState {
+        let mut white_in_check = false;
+        let mut black_in_check = false;
 
-		let mut white_in_checkmate = true;
-		let mut black_in_checkmate = true;
+        let mut white_in_checkmate = true;
+        let mut black_in_checkmate = true;
 
-		let mut stalemate = true;
+        let mut stalemate = true;
 
-		for piece in self.pieces.iter() {
-			if piece.color == PieceColor::White {
-				if piece.kind == PieceKind::King {
-					if self.check_in_check(PieceColor::White) {
-						white_in_check = true;
-						stalemate = false;
-					}
-				} else {
-					let moves = self.get_moves(&piece.position, true);
-					if moves.len() > 0 {
-						white_in_checkmate = false;
-						stalemate = false;
-					}
-				}
-			} else if piece.color == PieceColor::Black {
-				if piece.kind == PieceKind::King {
-					if self.check_in_check(PieceColor::Black) {
-						black_in_check = true;
-						stalemate = false;
-					}
-				} else {
-					let moves = self.get_moves(&piece.position, true);
-					if moves.len() > 0 {
-						black_in_checkmate = false;
-						stalemate = false;
-					}
-				}
-			}
-		}
+        for piece in self.pieces.iter() {
+            if piece.color == PieceColor::White {
+                if piece.kind == PieceKind::King {
+                    if self.check_in_check(PieceColor::White) {
+                        white_in_check = true;
+                        stalemate = false;
+                    }
+                } else {
+                    let moves = self.get_moves(&piece.position, true);
+                    if moves.len() > 0 {
+                        white_in_checkmate = false;
+                        stalemate = false;
+                    }
+                }
+            } else if piece.color == PieceColor::Black {
+                if piece.kind == PieceKind::King {
+                    if self.check_in_check(PieceColor::Black) {
+                        black_in_check = true;
+                        stalemate = false;
+                    }
+                } else {
+                    let moves = self.get_moves(&piece.position, true);
+                    if moves.len() > 0 {
+                        black_in_checkmate = false;
+                        stalemate = false;
+                    }
+                }
+            }
+        }
 
-		if white_in_checkmate {
-			return GameState::WhiteInCheckmate;
-		} else if black_in_checkmate {
-			return GameState::BlackInCheckmate;
-		} else if white_in_check {
-			return GameState::WhiteInCheck;
-		} else if black_in_check {
-			return GameState::BlackInCheck;
-		} else if stalemate {
-			return GameState::Stalemate;
-		}
+        if white_in_checkmate {
+            return GameState::WhiteInCheckmate;
+        } else if black_in_checkmate {
+            return GameState::BlackInCheckmate;
+        } else if white_in_check {
+            return GameState::WhiteInCheck;
+        } else if black_in_check {
+            return GameState::BlackInCheck;
+        } else if stalemate {
+            return GameState::Stalemate;
+        }
 
-		GameState::Playing
-	}
+        GameState::Playing
+    }
+
+    fn execute_move(&self, to: &Position, from: &Position) -> Option<Board> {
+        let piece = self.get(from);
+        if piece.color != self.turn {
+            // invalid move, wrong turn
+            return None;
+        }
+
+        let mut new_board = self.clone();
+        let moves = self.get_moves(from, true);
+        let mut valid = false;
+
+        for position in moves.iter() {
+            if *position == *to {
+                valid = true;
+                break;
+            }
+        }
+
+        if !valid {
+            // invalid move, not a valid move
+            return None;
+        }
+
+        // ok the move is valid, now we just need to make sure that when the piece is moved, we are making sure to update en passant, castling, etc.
+        if piece.kind == PieceKind::Pawn {
+            if piece.position.y() == 1 || piece.position.y() == 6 {
+                //check en passant
+
+                if piece.color == PieceColor::White {
+                    if piece.position.y() == 1 && to.y() == 3 {
+                        new_board.en_passant = Some(Piece {
+                            position: Position::from_x_y(to.x(), 2),
+                            color: PieceColor::None,
+                            kind: PieceKind::None,
+                            pid: -1,
+                        });
+                    }
+                } else {
+                    if piece.position.y() == 6 && to.y() == 4 {
+                        new_board.en_passant = Some(Piece {
+                            position: Position::from_x_y(to.x(), 5),
+                            color: PieceColor::None,
+                            kind: PieceKind::None,
+                            pid: -1,
+                        });
+                    }
+                }
+            } else {
+                // check if piece killed is en passant
+                let dir = match piece.color {
+                    PieceColor::White => 1,
+                    PieceColor::Black => -1,
+                    PieceColor::None => 0,
+                };
+                match new_board.en_passant {
+                    Some(en_passant) => {
+                        if en_passant.position == *to {
+                            // en passant!
+                            let mut killed = en_passant;
+                            killed.position = Position::from_x_y(to.x(), from.y() - dir);
+                            new_board.remove(killed.position);
+                        }
+                    }
+                    None => {}
+                }
+            }
+
+            new_board.en_passant = None;
+            new_board.mov(*from, *to);
+        } else {
+            new_board.en_passant = None;
+            if piece.kind == PieceKind::King {
+                // check if move is a castling move or if it is just a normal move
+                if self.check_castle(new_board.get(from), new_board.get(to)) {
+                    // YES! it is a castling move
+
+                    // now we need to figure out which rook is being moved
+
+                    let side = match to.x() {
+                        0 => "queenside",
+                        7 => "kingside",
+                        _ => "none",
+                    };
+
+                    if piece.color == PieceColor::White {
+                        new_board.white_castle_kingside = false;
+                        new_board.white_castle_queenside = false;
+                    } else {
+                        new_board.black_castle_kingside = false;
+                        new_board.black_castle_queenside = false;
+                    }
+
+                    // now we need to move the pieces
+                    let rook_new_position = match side {
+                        "queenside" => Position::from_x_y(3, to.y()),
+                        "kingside" => Position::from_x_y(5, to.y()),
+                        _ => Position::none(),
+                    };
+
+                    let king_new_position = match side {
+                        "queenside" => Position::from_x_y(2, to.y()),
+                        "kingside" => Position::from_x_y(6, to.y()),
+                        _ => Position::none(),
+                    };
+
+                    new_board.mov(*to, rook_new_position);
+                    new_board.mov(*from, king_new_position);
+                } else {
+                    new_board.mov(*from, *to);
+                }
+            } else if piece.kind == PieceKind::Rook {
+                // mostly normal, just need to make sure that castling is disabled
+                let side = match piece.position.x() {
+                    0 => "queenside",
+                    7 => "kingside",
+                    _ => "none",
+                };
+
+                if side == "queenside" {
+                    if piece.color == PieceColor::White {
+                        new_board.white_castle_queenside = false;
+                    } else {
+                        new_board.black_castle_queenside = false;
+                    }
+                } else if side == "kingside" {
+                    if piece.color == PieceColor::White {
+                        new_board.white_castle_kingside = false;
+                    } else {
+                        new_board.black_castle_kingside = false;
+                    }
+                }
+
+                new_board.mov(*from, *to);
+            } else {
+                new_board.mov(*from, *to);
+            }
+        }
+
+        new_board.turn = new_board.turn.opposite();
+        new_board.selected_piece = None;
+        Some(new_board)
+    }
 }
 
 fn get_moves_pawn(board: &Board, position: &Position, check_check: bool) -> Vec<Position> {
@@ -886,9 +1029,9 @@ fn update_react_selection(window: &Window, board: &Board, square: &String) {
 async fn pick_square(window: Window, mut board: Board, square: String) {
     debug!("pick_square {}", square);
 
-	if board.turn == board.ai {
-		return;
-	}
+    if board.turn == board.ai {
+        return;
+    }
 
     let position = Position::from_algebraic(&square);
     let piece = board.get(&position);
@@ -901,59 +1044,17 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
                 if selected_piece.kind == PieceKind::King
                     && board.check_castle(selected_piece, piece)
                 {
-                    // castle moment
-                    let mut castle = false;
-                    let king_moves = board.get_moves(&selected_piece.position, true);
-
-                    let castle_queenside = match selected_piece.color {
-                        PieceColor::White => board.white_castle_queenside,
-                        PieceColor::Black => board.black_castle_queenside,
-                        PieceColor::None => false,
-                    };
-
-                    let castle_kingside = match selected_piece.color {
-                        PieceColor::White => board.white_castle_kingside,
-                        PieceColor::Black => board.black_castle_kingside,
-                        PieceColor::None => false,
-                    };
-
-                    for king_move in king_moves.iter() {
-                        if *king_move == position {
-                            if position.x() == 0 && castle_queenside {
-                                castle = true;
-                                board.mov(
-                                    selected_piece.position,
-                                    Position::from_x_y(3, position.y()),
-                                );
-                                board.mov(piece.position, Position::from_x_y(2, position.y()));
-                                break;
-                            } else if position.x() == 7 && castle_kingside {
-                                castle = true;
-                                board.mov(
-                                    selected_piece.position,
-                                    Position::from_x_y(5, position.y()),
-                                );
-                                board.mov(piece.position, Position::from_x_y(6, position.y()));
-                                break;
-                            }
-                        }
-                    }
-
-                    if !castle {
-                        // invalid castle, treat it like a piece has been selected
-                        select_piece(&window, &mut board, &square);
-                        update_react_selection(&window, &board, &square);
-                    } else {
-                        info!("Castle!");
-                        info!(
-                            "{} castles from {} to {}",
-                            selected_piece.color, selected_piece.position, position
-                        );
-                        board.turn = turn.opposite();
-                        board.selected_piece = None;
-                        update_react_selection(&window, &board, &square);
-                        update_react_board(&window, &board);
-                    }
+					let new_board = board.execute_move(&position, &selected_piece.position);
+					match new_board {
+						Some(new_board) => {
+							board = new_board;
+						}
+						None => {
+							board.selected_piece = Some(selected_piece);
+						}
+					}
+                    
+					update_react_selection(&window, &board, &square);
                 } else {
                     // not a castle, so we can select the piece
                     select_piece(&window, &mut board, &square);
@@ -967,82 +1068,16 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
                     // square clicked is empty
                 }
 
-                let valid_moves = board.get_moves(&selected_piece.position, true);
+				match board.execute_move(&position, &selected_piece.position) {
+					Some(new_board) => {
+						board = new_board;
+					}
+					None => {
+						board.selected_piece = Some(selected_piece);
+					}
+				}
 
-                // check if the square clicked is a valid move
-                let mut valid_move = false;
-
-                for valid_move_position in valid_moves.iter() {
-                    if *valid_move_position == position {
-                        valid_move = true;
-                        break;
-                    }
-                }
-
-                if valid_move {
-                    debug!("Valid move");
-
-                    // check if the move creates a new en passant
-                    if selected_piece.kind == PieceKind::Pawn
-                        && (selected_piece.position.y() - position.y()).abs() == 2
-                    {
-                        let en_passant_square = Position::from_x_y(
-                            selected_piece.position.x(),
-                            (selected_piece.position.y() + position.y()) / 2,
-                        );
-                        board.en_passant = Some(board.get(&en_passant_square));
-                    } else if selected_piece.kind == PieceKind::Pawn {
-                        // check if the move is an en passant attack
-                        if board.en_passant.is_some() {
-                            if board.en_passant.unwrap().position == position {
-                                let y = selected_piece.position.y();
-
-                                //remove attacked piece
-                                board.remove(Position::from_x_y(position.x(), y));
-                            }
-                        }
-
-                        board.en_passant = None;
-                    } else {
-                        board.en_passant = None;
-
-                        // check if piece is a rook or king. if it is, then we need to remove appropriate castles
-                        if selected_piece.kind == PieceKind::Rook {
-                            if selected_piece.position.x() == 0 {
-                                if selected_piece.position.y() == 0 {
-                                    board.white_castle_queenside = false;
-                                } else if selected_piece.position.y() == 7 {
-                                    board.black_castle_queenside = false;
-                                }
-                            } else if selected_piece.position.x() == 7 {
-                                if selected_piece.position.y() == 0 {
-                                    board.white_castle_kingside = false;
-                                } else if selected_piece.position.y() == 7 {
-                                    board.black_castle_kingside = false;
-                                }
-                            }
-                        } else if selected_piece.kind == PieceKind::King {
-                            if selected_piece.position.y() == 0 {
-                                board.white_castle_kingside = false;
-                                board.white_castle_queenside = false;
-                            } else if selected_piece.position.y() == 7 {
-                                board.black_castle_kingside = false;
-                                board.black_castle_queenside = false;
-                            }
-                        }
-                    }
-
-                    // move the piece
-                    board.mov(selected_piece.position, position);
-                    board.turn = turn.opposite();
-                    board.selected_piece = None;
-                    update_react_selection(&window, &board, &square);
-                    update_react_board(&window, &board);
-                } else {
-                    // not a valid move, so we can deselect pieces
-                    board.selected_piece = None;
-                    update_react_selection(&window, &board, &square);
-                }
+				update_react_selection(&window, &board, &square);
             }
         }
         None => {
