@@ -1,0 +1,30 @@
+.chessboard {
+	/* make this an 8x8 grid */
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	position: absolute;
+}
+
+.black {
+	background-color: black;
+}
+
+.white {
+	background-color: white;
+}
+
+.highlighted-square {
+	/* transparent yellow */
+	background-color: rgba(255, 255, 0, 0.3);
+	z-index: 1;
+}
+
+.selected-square {
+	/* transparent blue */
+	background-color: rgba(74, 161, 255, 0.5);
+	z-index: 1;
+}
+
+.piece {
+	z-index: 2;
+}

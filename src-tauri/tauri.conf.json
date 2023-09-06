@@ -13,6 +13,9 @@
 	"tauri": {
 		"allowlist": {
 			"all": false,
+			"window": {
+				"startDragging": true
+			},
 			"shell": {
 				"all": false,
 				"open": true
@@ -39,6 +42,16 @@
 		},
 		"security": {
 			"csp": null
-		}
+		},
+		"windows": [
+			{
+				"titleBarStyle": "Overlay",
+				"fullscreen": false,
+				"resizable": true,
+				"title": "",
+				"width": 512,
+				"height": 512
+			}
+		]
 	}
 }

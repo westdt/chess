@@ -1,0 +1,32 @@
+.App {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.drag {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	top: 0;
+	left: 0;
+
+	background-color: transparent;
+}
+
+.button-wrapper {
+	position: absolute;
+
+	top: 6px;
+	left: 6px;
+
+	width: 56px;
+	height: 16px;
+
+	border-radius: 8px;
+
+	background-color: #fffa;
+	z-index: 3;
+}
