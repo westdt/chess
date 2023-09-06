@@ -30,3 +30,7 @@
 	background-color: #fffa;
 	z-index: 3;
 }
+
+* {
+	overflow: hidden;
+}

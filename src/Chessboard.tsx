@@ -67,6 +67,7 @@ function PieceKindToChar(type: PieceKind): string {
 */
 function Chessboard(props: { squareSize: number, top: number }) {
 	const [chessBoard, setChessBoard] = useState<Board>(null!);
+	const [chessBoardElements, setChessBoardElements] = useState<any[]>([]);
 	const [selectedSquare, setSelectedSquare] = useState<string>("");
 	const [highlightedSquares, setHighlightedSquares] = useState<string[]>([]);
 	const [theme, setTheme] = useState("default");
@@ -82,30 +83,6 @@ function Chessboard(props: { squareSize: number, top: number }) {
 	let result = <></>;
 
 	if (chessBoard) {
-		// render the pieces on the chessboard
-		let pieces = chessBoard.pieces.map((piece) => {
-			trace("Piece: " + JSON.stringify(piece));
-
-			// get piece data including position, type, color, and image path
-			let position = piece.position;
-			let algebraicPosition = fromIndexToAlgebraic(position.value);
-			let [x, y] = toXY(algebraicPosition);
-
-			if (piece.kind === "None") {
-				return <></>;
-			}
-
-			let PieceKind = PieceKindToChar(piece.kind);
-			let pieceColor = pieceColorToChar(piece.color);
-			let pieceImagePath = "pieces/" + theme + "/" + pieceColor + PieceKind + ".svg";
-
-
-
-			// return the piece as an img element with width and height equal to the square size
-			// a1 is the lower left corner of the chessboard
-			return <img src={pieceImagePath} id={"p" + piece.pid} className="piece" style={{ "width": props.squareSize + "px", "height": props.squareSize + "px", "position": "absolute", "left": x * props.squareSize + "px", "bottom": y * props.squareSize + "px" }} />;
-		});
-
 		// render the highlighted squares
 		let highlightedSquaresElements = highlightedSquares.map((square) => {
 
@@ -125,8 +102,68 @@ function Chessboard(props: { squareSize: number, top: number }) {
 		}
 
 		// set result
-		result = <>{pieces}{highlightedSquaresElements}{selectedSquareElement}</>;
+		result = <>{chessBoardElements.map((element) => { return element })
+		}{highlightedSquaresElements}{selectedSquareElement}</>;
 	}
+
+	function updateChessBoardElements() {
+		// scan chessboard for any changes. Make sure that chessBoardElements is up to date and if not, create new elements
+
+		if (chessBoard) {
+			for (let piece of chessBoard.pieces) {
+				let pieceElement = document.getElementById("" + piece.pid);
+				if (pieceElement) {
+					// piece already exists and still should, just update its position
+
+					pieceElement.style.left = (toXY(fromIndexToAlgebraic(piece.position.value))[0] * props.squareSize) + "px";
+					pieceElement.style.bottom = (toXY(fromIndexToAlgebraic(piece.position.value))[1] * props.squareSize) + "px";
+				} else {
+					if (piece.kind === "None") {
+						continue;
+					}
+
+					// piece does not exist, create it
+					// get piece data including position, type, color, and image path
+					let position = piece.position;
+					let algebraicPosition = fromIndexToAlgebraic(position.value);
+					let [x, y] = toXY(algebraicPosition);
+
+					let PieceKind = PieceKindToChar(piece.kind);
+					let pieceColor = pieceColorToChar(piece.color);
+					let pieceImagePath = "pieces/" + theme + "/" + pieceColor + PieceKind + ".svg";
+
+					let newPieceElement = <img src={pieceImagePath} id={"" + piece.pid} className="piece" style={{
+						"width": props.squareSize + "px", "height": props.squareSize + "px", "position": "absolute", "left": x * props.squareSize + "px", "bottom": y * props.squareSize + "px"
+					}} />;
+					setChessBoardElements((oldArray) => [...oldArray, newPieceElement]);
+				}
+			}
+		}
+
+		if (chessBoardElements && chessBoard) {
+			let pidList: number[] = chessBoard.pieces.map((piece) => { return piece.pid });
+			let removedPid: number[] = []
+			for (let element of chessBoardElements) {
+				let id = parseInt(element.props.id);
+				if (!pidList.includes(id)) {
+					removedPid.push(id);
+					break;
+				}
+			}
+
+			if (removedPid.length > 0) {
+				for (let pid of removedPid) {
+					let element = document.getElementById("" + pid);
+
+					if (element) {
+						element.style.opacity = "0";
+						// for stupid reasons it works way better to just hide the element than to actually remove it. fml
+					}
+				}
+			}
+		}
+	}
+
 
 	function handleClick(event: any) {
 		let x = Math.floor(event.clientX / props.squareSize);
@@ -178,6 +215,11 @@ function Chessboard(props: { squareSize: number, top: number }) {
 			setChessBoard(board);
 		});
 	}, []);
+
+	// chessboard has been updated
+	useEffect(() => {
+		updateChessBoardElements();
+	}, [chessBoard]);
 
 	return (
 		<div className="chessboard" style={{ "width": props.squareSize * 8 + "px", "height": props.squareSize * 8 + "px", "top": props.top + "px" }} onClick={handleClick}>

@@ -20,6 +20,7 @@ tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", br
 log = "^0.4"
 ts-rs = "7.0"
 rand = "0.8"
+async-trait = "0.1.73"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

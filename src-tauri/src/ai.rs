@@ -1,18 +1,22 @@
+use async_trait::async_trait;
+
 use rand::Rng;
 use tauri::Window;
 
 use crate::{update_react_board, update_react_selection, Board, Position, PieceKind};
 
+#[async_trait]
 pub trait ChessAI {
-    fn get_move(&self, window: &Window, board: &Board) -> Board;
+    async fn get_move(&self, window: &Window, board: &Board) -> Board;
 }
 
 pub struct MinimaxAI {
 	depth: i32,
 }
 
+#[async_trait]
 impl ChessAI for MinimaxAI {
-    fn get_move(&self, window: &Window, board: &Board) -> Board {
+    async fn get_move(&self, window: &Window, board: &Board) -> Board {
         // use minimax to get the best move
 		let mut board = board.clone();
 		let mut moves: Vec<(Position, Position)> = Vec::new();
@@ -141,8 +145,9 @@ impl MinimaxAI {
 
 pub struct RandomAI {}
 
+#[async_trait]
 impl ChessAI for RandomAI {
-    fn get_move(&self, window: &Window, board: &Board) -> Board {
+   async fn get_move(&self, window: &Window, board: &Board) -> Board {
         let mut board = board.clone();
         let mut rng = rand::thread_rng();
         let mut moves: Vec<(Position, Position)> = Vec::new();

@@ -26,5 +26,6 @@
 }
 
 .piece {
+	transition: all 0.2s ease-out;
 	z-index: 2;
 }

@@ -341,7 +341,7 @@ impl Board {
             black_castle_kingside: true,
             black_castle_queenside: true,
             turn: PieceColor::White,
-            ai: PieceColor::random(),
+            ai: PieceColor::Black,
             max_pid: 0,
         }
     }
@@ -370,7 +370,7 @@ impl Board {
             position: from,
             color: PieceColor::None,
             kind: PieceKind::None,
-            pid: -1,
+            pid: -1
         });
         self.set(Piece {
             position: to,
@@ -883,8 +883,12 @@ fn update_react_selection(window: &Window, board: &Board, square: &String) {
 // board: the board to pick a square on
 // square: the square to pick
 #[tauri::command]
-fn pick_square(window: Window, mut board: Board, square: String) {
+async fn pick_square(window: Window, mut board: Board, square: String) {
     debug!("pick_square {}", square);
+
+	if board.turn == board.ai {
+		return;
+	}
 
     let position = Position::from_algebraic(&square);
     let piece = board.get(&position);
@@ -1055,7 +1059,7 @@ fn pick_square(window: Window, mut board: Board, square: String) {
     if board.turn == board.ai {
         let ai: MinimaxAI = MinimaxAI::new(3);
 
-        board = ai.get_move(&window, &board);
+        board = ai.get_move(&window, &board).await;
         update_react_board(&window, &board);
     }
 }
