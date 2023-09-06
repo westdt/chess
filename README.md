@@ -7,6 +7,9 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 - Learn TypeScript and how to use it side-by-side with Rust: Learning JavaScript is something that almost every developer tries at some point. Most frontends use JavaScript and learning how to use it enables me to work on and understand thousands of frontends. Learning how to integrate this with Rust was a challenge that I approached in a very non-typical way.
  
 - ✨Tauri! ✨   Tauri is an amazing toolkit for implementing a frontend with a Rust backend as well as having many more features that I have yet to apply. In my opinion, Tauri is a real gamechanger and I see Rust + Tauri + React as being an extremely powerful and promising option for the future.
+ 
+- React: React is obviously a highly in demand skillset that is used by the vast majority of JS-based frontend applications. This chess app has taught me how to use state (as well as the limitations of state).
+
 #### Demonstrating my skills
 - General development: This project shows my knowledge of basic coding concepts like variables, types, structs, logic gates/control flow, and many more.
 
