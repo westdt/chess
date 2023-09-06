@@ -117,6 +117,8 @@ function Chessboard(props: { squareSize: number, top: number }) {
 
 					pieceElement.style.left = (toXY(fromIndexToAlgebraic(piece.position.value))[0] * props.squareSize) + "px";
 					pieceElement.style.bottom = (toXY(fromIndexToAlgebraic(piece.position.value))[1] * props.squareSize) + "px";
+					pieceElement.style.width = props.squareSize + "px";
+					pieceElement.style.height = props.squareSize + "px";
 				} else {
 					if (piece.kind === "None") {
 						continue;
@@ -132,7 +134,7 @@ function Chessboard(props: { squareSize: number, top: number }) {
 					let pieceColor = pieceColorToChar(piece.color);
 					let pieceImagePath = "pieces/" + theme + "/" + pieceColor + PieceKind + ".svg";
 
-					let newPieceElement = <img src={pieceImagePath} id={"" + piece.pid} className="piece" style={{
+					let newPieceElement = <img src={pieceImagePath} id={"" + piece.pid} className="piece transition" style={{
 						"width": props.squareSize + "px", "height": props.squareSize + "px", "position": "absolute", "left": x * props.squareSize + "px", "bottom": y * props.squareSize + "px"
 					}} />;
 					setChessBoardElements((oldArray) => [...oldArray, newPieceElement]);
@@ -154,7 +156,6 @@ function Chessboard(props: { squareSize: number, top: number }) {
 			if (removedPid.length > 0) {
 				for (let pid of removedPid) {
 					let element = document.getElementById("" + pid);
-
 					if (element) {
 						element.style.opacity = "0";
 						// for stupid reasons it works way better to just hide the element than to actually remove it. fml
@@ -220,6 +221,10 @@ function Chessboard(props: { squareSize: number, top: number }) {
 	useEffect(() => {
 		updateChessBoardElements();
 	}, [chessBoard]);
+
+	useEffect(() => {
+		updateChessBoardElements();
+	}, [props.squareSize]);
 
 	return (
 		<div className="chessboard" style={{ "width": props.squareSize * 8 + "px", "height": props.squareSize * 8 + "px", "top": props.top + "px" }} onClick={handleClick}>
