@@ -38,3 +38,4 @@ The purpose of this project is threefold: learning, demonstrating my skills, and
 - ✅ Better bot support: I would like to be able to have different bots that can be easily selected and used.
 - Restructure/optimization: There are a lot of optimization and structure decisions I made for ease of coding, but these need to be fixed eventually.
 - Animations: Switching to React I had to temporarily sacrifice the animations I had in the previous version. I have an idea for how I can fix it but I just have not done it yet.
+- Async backend: AI needs to run asynchronously. Right now it is causing major problems by running synchronously.
