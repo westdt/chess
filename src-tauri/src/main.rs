@@ -1047,7 +1047,7 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
 							board = new_board;
 						}
 						None => {
-							board.selected_piece = Some(selected_piece);
+							board.selected_piece = None;
 						}
 					}
                     
@@ -1070,7 +1070,7 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
 						board = new_board;
 					}
 					None => {
-						board.selected_piece = Some(selected_piece);
+						board.selected_piece = None;
 					}
 				}
 
