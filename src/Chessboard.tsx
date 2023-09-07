@@ -65,7 +65,7 @@ function PieceKindToChar(type: PieceKind): string {
  * select-square: select a square
  * 
 */
-function Chessboard(props: { squareSize: number, top: number }) {
+function Chessboard(props: { squareSize: number, top: number, windowHeight: number, windowWidth: number }) {
 	const [chessBoard, setChessBoard] = useState<Board>(null!);
 	const [chessBoardElements, setChessBoardElements] = useState<any[]>([]);
 	const [selectedSquare, setSelectedSquare] = useState<string>("");
@@ -167,8 +167,10 @@ function Chessboard(props: { squareSize: number, top: number }) {
 
 
 	function handleClick(event: any) {
-		let x = Math.floor(event.clientX / props.squareSize);
-		let y = Math.floor(event.clientY / props.squareSize);
+		let x_offset = (props.windowWidth - (props.squareSize * 8)) / 2;
+		let y_offset = (props.windowHeight - (props.squareSize * 8)) / 2;
+		let x = Math.floor((event.clientX - x_offset) / props.squareSize);
+		let y = Math.floor((event.clientY - y_offset) / props.squareSize);
 
 		if (x > 7 || y > 7 || x < 0 || y < 0) {
 			return;

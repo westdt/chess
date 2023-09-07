@@ -7,6 +7,7 @@ import Chessboard from "./Chessboard";
 function App() {
 	const [squareSize, setSquareSize] = useState(64);
 	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
 	// run when the component is first rendered
 	useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
 			// set the square size
 			setSquareSize(newSquareSize);
 			setHeight(window.innerHeight);
+			setWidth(window.innerWidth);
 
 			if (prevSquareSize !== newSquareSize) {
 				trace("Square size changed to " + squareSize);
@@ -32,7 +34,7 @@ function App() {
 	return (
 		<div className="App">
 			<div data-tauri-drag-region className="drag"></div>
-			<Chessboard squareSize={squareSize} top={(height - (squareSize * 8)) / 2} />
+			<Chessboard squareSize={squareSize} top={(height - (squareSize * 8)) / 2} windowHeight={height} windowWidth={width} />
 			<div data-tauri-drag-region className="button-wrapper"></div>
 		</div>
 	);
