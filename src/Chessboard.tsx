@@ -175,40 +175,37 @@ function Chessboard(props: { squareSize: number, top: number }) {
 		}
 
 		let position = toAlgebraic(x, y);
-		debug("Clicked square: " + position);
 		if (chessBoard) {
+			trace("<- pick_square");
 			invoke("pick_square", { board: chessBoard, square: position })
-		} else {
-			debug("Chessboard is null");
 		}
 	}
 
 	// invoke setup_board from Tauri when the component is first rendered
 	useEffect(() => {
-		debug("useEffect called");
-
 		listen("update-board", (event) => {
-			debug("update-board event received");
+			trace("-> update-board");
 
 			let board: Board = event.payload as Board;
 			setChessBoard(board);
 		});
 
 		listen("set-highlights", (event) => {
-			debug("set-highlights event received");
+			trace("-> set-highlights");
 
 			let squares: string[] = event.payload as string[];
 			setHighlightedSquares(squares);
 		});
 
 		listen("select-square", (event) => {
-			debug("select-square event received");
+			trace("-> select-square");
 
 			let square: string = event.payload as string;
 			setSelectedSquare(square);
 		});
 
 		// invoke setup_board from Tauri
+		trace("<- setup_board");
 		invoke("setup_board").then((result) => {
 			let board: Board = result as Board;
 

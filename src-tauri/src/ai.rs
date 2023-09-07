@@ -47,9 +47,6 @@ impl ChessAI for MinimaxAI {
         board.mov(best_move.0, best_move.1);
         board.turn = board.turn.opposite();
         board.selected_piece = None;
-        update_react_selection(window, &board, &"None".to_string());
-        update_react_board(window, &board);
-
         board
     }
 }

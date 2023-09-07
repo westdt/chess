@@ -743,7 +743,6 @@ fn get_moves_pawn(board: &Board, position: &Position, check_check: bool) -> Vec<
             // en passant
             match board.en_passant {
                 Some(en_passant) => {
-                    debug!("En passant: {}", board.en_passant.unwrap().position);
                     if en_passant.position == Position::from_x_y(new_position.x(), new_position.y())
                     {
                         if (board.validate(*position, new_position, check_check)) {
@@ -772,7 +771,6 @@ fn get_moves_pawn(board: &Board, position: &Position, check_check: bool) -> Vec<
             // en passant
             match board.en_passant {
                 Some(en_passant) => {
-                    debug!("En passant: {}", board.en_passant.unwrap().position);
                     if en_passant.position == Position::from_x_y(new_position.x(), new_position.y())
                     {
                         if (board.validate(*position, new_position, check_check)) {
@@ -981,25 +979,22 @@ fn get_moves_king(board: &Board, position: &Position, check_check: bool) -> Vec<
 // returns the default chess board
 #[tauri::command]
 fn setup_board(window: Window) -> Board {
-    debug!("setup_board");
+    trace!("-> setup_board");
 
     Board::default_board()
 }
 
 fn select_piece(window: &Window, board: &mut Board, square: &String) {
     board.selected_piece = Some(board.get(&(Position::from_algebraic(&square))));
-
-    let _select_square = match board.selected_piece {
-        Some(piece) => window.emit("select-square", piece.position.algebraic()),
-        None => window.emit("select-square", String::from("none")),
-    };
 }
 
 fn update_react_board(window: &Window, board: &Board) {
+	trace!("<- update-board");
     let _update_board = window.emit("update-board", board);
 }
 
 fn update_react_selection(window: &Window, board: &Board, square: &String) {
+	trace!("<- select-square");
     let _update_selection = match board.selected_piece {
         Some(piece) => window.emit("select-square", piece.position.algebraic()),
         None => window.emit("select-square", String::from("none")),
@@ -1012,8 +1007,10 @@ fn update_react_selection(window: &Window, board: &Board, square: &String) {
             .iter()
             .map(|position| position.algebraic())
             .collect::<Vec<String>>();
+		trace!("<- set-highlights");
         let _update_highlights = window.emit("set-highlights", moves_algebraic);
     } else {
+		trace!("<- set-highlights");
         let _update_highlights = window.emit("set-highlights", Vec::<String>::new());
     }
 }
@@ -1027,7 +1024,7 @@ fn update_react_selection(window: &Window, board: &Board, square: &String) {
 // square: the square to pick
 #[tauri::command]
 async fn pick_square(window: Window, mut board: Board, square: String) {
-    debug!("pick_square {}", square);
+    trace!("-> pick_square");
 
     if board.turn == board.ai {
         return;
@@ -1057,7 +1054,7 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
 					update_react_selection(&window, &board, &square);
                 } else {
                     // not a castle, so we can select the piece
-                    select_piece(&window, &mut board, &square);
+                    board.selected_piece = Some(board.get(&(Position::from_algebraic(&square))));
                     update_react_selection(&window, &board, &square);
                 }
             } else {
@@ -1083,7 +1080,7 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
         None => {
             // no piece currently selected. if the new piece is a piece of the current turn, then we can select it
             if color == turn {
-                select_piece(&window, &mut board, &square);
+                board.selected_piece = Some(board.get(&(Position::from_algebraic(&square))));
                 update_react_selection(&window, &board, &square);
             }
         }
