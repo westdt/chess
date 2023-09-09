@@ -3,35 +3,36 @@ use async_trait::async_trait;
 use rand::Rng;
 use tauri::Window;
 
-use crate::engine::{alpha::EngineAlpha, Board, Engine, Move, PieceKind, Position};
+use crate::{update_react_board, update_react_selection, Board, PieceKind, Position};
 
-pub trait ChessBot {
-    fn get_move(&self, board: &Board) -> Move;
+#[async_trait]
+pub trait ChessAI {
+    async fn get_move(&self, window: &Window, board: &Board) -> Board;
 }
 
-pub struct MinimaxBot {
+pub struct MinimaxAI {
     depth: i32,
 }
 
-impl ChessBot for MinimaxBot {
-    fn get_move(&self, board: &Board) -> Move {
-        let engine = EngineAlpha::new();
+#[async_trait]
+impl ChessAI for MinimaxAI {
+    async fn get_move(&self, window: &Window, board: &Board) -> Board {
         // use minimax to get the best move
         let mut board = board.clone();
         let mut moves: Vec<(Position, Position)> = Vec::new();
         let mut highest_score = -1000;
-        let mut best_move = (Position::from_index(0), Position::from_index(0));
+        let mut best_move = (Position::new(0), Position::new(0));
 
         for i in 0..63 {
             let i = i as i8;
-            let position = Position::from_index(i);
-            if board.get_piece(&position).color == board.bot {
-                let piece_moves = engine.get_moves(&position, &board);
+            let position = Position::new(i);
+            if board.get(&position).color == board.ai {
+                let piece_moves = board.get_moves(&position, true);
                 for j in 0..piece_moves.len() {
                     let mut new_board = board.clone();
                     let to = piece_moves[j];
                     let from = position;
-                    new_board.move_piece(&from, &to);
+                    new_board.mov(from, to);
                     new_board.turn = new_board.turn.opposite();
                     new_board.selected_piece = None;
                     let score = self.minimax(&new_board, self.depth, false);
@@ -43,22 +44,25 @@ impl ChessBot for MinimaxBot {
             }
         }
 
-        Move::validate(best_move.0, best_move.1).unwrap()
+        board.mov(best_move.0, best_move.1);
+        board.turn = board.turn.opposite();
+        board.selected_piece = None;
+        board
     }
 }
 
-impl MinimaxBot {
+impl MinimaxAI {
     pub fn new(depth: i32) -> Self {
-        MinimaxBot { depth }
+        MinimaxAI { depth }
     }
 
     fn evaluate(&self, board: &Board) -> i32 {
         let mut score: i32 = 0;
         for i in 0..63 {
             let i = i as i8;
-            let position = Position::from_index(i);
-            let piece = board.get_piece(&position);
-            if piece.color == board.bot {
+            let position = Position::new(i);
+            let piece = board.get(&position);
+            if piece.color == board.ai {
                 match piece.kind {
                     PieceKind::Pawn => score += 1,
                     PieceKind::Knight => score += 3,
@@ -84,7 +88,6 @@ impl MinimaxBot {
     }
 
     fn minimax(&self, board: &Board, depth: i32, maximizing_player: bool) -> i32 {
-        let engine = EngineAlpha::new();
         if depth == 0 {
             return self.evaluate(board);
         }
@@ -94,14 +97,14 @@ impl MinimaxBot {
 
             for i in 0..63 {
                 let i = i as i8;
-                let position = Position::from_index(i);
-                if board.get_piece(&position).color == board.bot {
-                    let piece_moves = engine.get_moves(&position, &board);
+                let position = Position::new(i);
+                if board.get(&position).color == board.ai {
+                    let piece_moves = board.get_moves(&position, true);
                     for j in 0..piece_moves.len() {
                         let mut new_board = board.clone();
                         let to = piece_moves[j];
                         let from = position;
-                        new_board.move_piece(&from, &to);
+                        new_board.mov(from, to);
                         new_board.turn = new_board.turn.opposite();
                         new_board.selected_piece = None;
                         let eval = self.minimax(&new_board, depth - 1, false);
@@ -116,14 +119,14 @@ impl MinimaxBot {
 
             for i in 0..63 {
                 let i = i as i8;
-                let position = Position::from_index(i);
-                if board.get_piece(&position).color == board.bot.opposite() {
-                    let piece_moves = engine.get_moves(&position, &board);
+                let position = Position::new(i);
+                if board.get(&position).color == board.ai.opposite() {
+                    let piece_moves = board.get_moves(&position, true);
                     for j in 0..piece_moves.len() {
                         let mut new_board = board.clone();
                         let to = piece_moves[j];
                         let from = position;
-                        new_board.move_piece(&from, &to);
+                        new_board.mov(from, to);
                         new_board.turn = new_board.turn.opposite();
                         new_board.selected_piece = None;
                         let eval = self.minimax(&new_board, depth - 1, true);
@@ -137,20 +140,20 @@ impl MinimaxBot {
     }
 }
 
-pub struct RandomBot {}
+pub struct RandomAI {}
 
-impl ChessBot for RandomBot {
-    fn get_move(&self, board: &Board) -> Move {
-        let engine = EngineAlpha::new();
+#[async_trait]
+impl ChessAI for RandomAI {
+    async fn get_move(&self, window: &Window, board: &Board) -> Board {
         let mut board = board.clone();
         let mut rng = rand::thread_rng();
         let mut moves: Vec<(Position, Position)> = Vec::new();
 
         for i in 0..63 {
             let i = i as i8;
-            let position = Position::from_index(i);
-            if board.get_piece(&position).color == board.bot {
-                let piece_moves = engine.get_moves(&position, &board);
+            let position = Position::new(i);
+            if board.get(&position).color == board.ai {
+                let piece_moves = board.get_moves(&position, true);
                 for j in 0..piece_moves.len() {
                     moves.push((position, piece_moves[j]));
                 }
@@ -162,12 +165,18 @@ impl ChessBot for RandomBot {
         let to = moves[index].1;
         let from = moves[index].0;
 
-        Move::validate(from, to).unwrap()
+        board.mov(from, to);
+        board.turn = board.turn.opposite();
+        board.selected_piece = None;
+        update_react_selection(window, &board, &"None".to_string());
+        update_react_board(window, &board);
+
+        board
     }
 }
 
-impl RandomBot {
+impl RandomAI {
     pub fn new() -> Self {
-        RandomBot {}
+        RandomAI {}
     }
 }

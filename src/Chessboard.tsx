@@ -110,14 +110,13 @@ function Chessboard(props: { squareSize: number, top: number, windowHeight: numb
 		// scan chessboard for any changes. Make sure that chessBoardElements is up to date and if not, create new elements
 
 		if (chessBoard) {
-			for (let i = 0; i < chessBoard.pieces.length; i++) {
-				let piece = chessBoard.pieces[i];
-				let pieceElement = document.getElementById("" + piece);
+			for (let piece of chessBoard.pieces) {
+				let pieceElement = document.getElementById("" + piece.pid);
 				if (pieceElement) {
 					// piece already exists and still should, just update its position
 
-					pieceElement.style.left = (toXY(fromIndexToAlgebraic(i))[0] * props.squareSize) + "px";
-					pieceElement.style.bottom = (toXY(fromIndexToAlgebraic(i))[1] * props.squareSize) + "px";
+					pieceElement.style.left = (toXY(fromIndexToAlgebraic(piece.position.value))[0] * props.squareSize) + "px";
+					pieceElement.style.bottom = (toXY(fromIndexToAlgebraic(piece.position.value))[1] * props.squareSize) + "px";
 					pieceElement.style.width = props.squareSize + "px";
 					pieceElement.style.height = props.squareSize + "px";
 				} else {
@@ -127,23 +126,42 @@ function Chessboard(props: { squareSize: number, top: number, windowHeight: numb
 
 					// piece does not exist, create it
 					// get piece data including position, type, color, and image path
-					let algebraicPosition = fromIndexToAlgebraic(i);
+					let position = piece.position;
+					let algebraicPosition = fromIndexToAlgebraic(position.value);
 					let [x, y] = toXY(algebraicPosition);
 
 					let PieceKind = PieceKindToChar(piece.kind);
 					let pieceColor = pieceColorToChar(piece.color);
 					let pieceImagePath = "pieces/" + theme + "/" + pieceColor + PieceKind + ".svg";
 
-					let newPieceElement = <img src={pieceImagePath} id={"id"} className="piece transition" style={{
+					let newPieceElement = <img src={pieceImagePath} id={"" + piece.pid} className="piece transition" style={{
 						"width": props.squareSize + "px", "height": props.squareSize + "px", "position": "absolute", "left": x * props.squareSize + "px", "bottom": y * props.squareSize + "px"
 					}} />;
-
 					setChessBoardElements((oldArray) => [...oldArray, newPieceElement]);
 				}
 			}
 		}
 
 		if (chessBoardElements && chessBoard) {
+			let pidList: number[] = chessBoard.pieces.map((piece) => { return piece.pid });
+			let removedPid: number[] = []
+			for (let element of chessBoardElements) {
+				let id = parseInt(element.props.id);
+				if (!pidList.includes(id)) {
+					removedPid.push(id);
+					break;
+				}
+			}
+
+			if (removedPid.length > 0) {
+				for (let pid of removedPid) {
+					let element = document.getElementById("" + pid);
+					if (element) {
+						element.style.opacity = "0";
+						// for stupid reasons it works way better to just hide the element than to actually remove it. fml
+					}
+				}
+			}
 		}
 	}
 
@@ -188,36 +206,6 @@ function Chessboard(props: { squareSize: number, top: number, windowHeight: numb
 			setSelectedSquare(square);
 		});
 
-		listen("game-state", (event) => {
-			trace("-> game-state");
-
-			let state: string = event.payload as string;
-			let confirmed: any;
-
-			switch (state) {
-				case "white-in-check":
-					info("White is in check");
-					break;
-				case "black-in-check":
-					info("Black is in check");
-					break;
-				case "white-in-checkmate":
-					info("White is in checkmate");
-					confirmed = confirm("White is in checkmate. Black wins!");
-					break;
-				case "black-in-checkmate":
-					info("Black is in checkmate");
-					confirmed = confirm("Black is in checkmate. White wins!");
-					break;
-				case "stalemate":
-					info("Stalemate");
-					break;
-				default:
-					break;
-			}
-
-		});
-
 		// invoke setup_board from Tauri
 		trace("<- setup_board");
 		invoke("setup_board").then((result) => {
@@ -234,22 +222,7 @@ function Chessboard(props: { squareSize: number, top: number, windowHeight: numb
 	}, [chessBoard]);
 
 	useEffect(() => {
-
-		// add .no-transition to all pieces
-		let pieces = document.getElementsByClassName("piece");
-		for (let i = 0; i < pieces.length; i++) {
-			pieces[i].classList.add("no-transition");
-		}
-
 		updateChessBoardElements();
-
-		// remove .no-transition from all pieces
-		setTimeout(() => {
-			for (let i = 0; i < pieces.length; i++) {
-				pieces[i].classList.remove("no-transition");
-			}
-		}
-			, 100);
 	}, [props.squareSize]);
 
 	return (

@@ -25,11 +25,11 @@
 	z-index: 1;
 }
 
-.no-transition {
-	transition: none !important;
+.piece {
+	transition: none;
+	z-index: 2;
 }
 
-.piece {
-	transition: left 0.2s ease-out, bottom 0.2s ease-out;
-	z-index: 2;
+.transition {
+	transition: all 0.2s ease-out;
 }
