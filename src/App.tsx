@@ -34,7 +34,7 @@ function App() {
 	return (
 		<div className="App">
 			<div data-tauri-drag-region className="drag"></div>
-			<Chessboard squareSize={squareSize} top={(height - (squareSize * 8)) / 2} windowHeight={height} windowWidth={width} />
+			<Chessboard windowHeight={height} windowWidth={width} />
 			<div data-tauri-drag-region className="button-wrapper"></div>
 		</div>
 	);
