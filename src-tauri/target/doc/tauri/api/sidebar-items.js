@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"mod":["dir","file","ipc","path","process","shell","version"],"type":["Result"]};

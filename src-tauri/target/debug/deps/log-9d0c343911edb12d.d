@@ -1,0 +1,13 @@
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/log-9d0c343911edb12d.rmeta: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/macros.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/serde.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/mod.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/error.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/key.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/source.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/value.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/__private_api.rs
+
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/log-9d0c343911edb12d.d: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/macros.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/serde.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/mod.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/error.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/key.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/source.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/value.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/__private_api.rs
+
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/lib.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/macros.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/serde.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/mod.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/error.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/key.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/source.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/kv/value.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/log-0.4.20/src/__private_api.rs:

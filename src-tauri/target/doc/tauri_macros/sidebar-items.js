@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["command"],"macro":["generate_context","generate_handler"]};

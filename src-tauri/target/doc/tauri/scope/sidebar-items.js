@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ExecuteArgs","FsScopeEvent","ShellScopeAllowedArg","ShellScopeError"],"mod":["ipc"],"struct":["FsScope","GlobPattern","HttpScope","ShellScope","ShellScopeAllowedCommand","ShellScopeConfig"]};

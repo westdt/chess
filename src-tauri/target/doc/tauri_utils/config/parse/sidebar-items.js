@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ENABLED_FORMATS","EXTENSIONS_SUPPORTED","SUPPORTED_FORMATS"],"enum":["ConfigError","ConfigFormat"],"fn":["does_supported_file_name_exist","folder_has_configuration_file","is_configuration_file","parse","parse_json","parse_json_value","parse_value","read_from","read_platform"]};

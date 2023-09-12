@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_dir","read_dir","with_temp_dir"],"struct":["DiskEntry"]};

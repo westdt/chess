@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Owned","Shared"],"struct":["Id","WeakId"],"trait":["Ownership"],"type":["ShareId"]};

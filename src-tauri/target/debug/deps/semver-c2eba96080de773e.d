@@ -1,0 +1,13 @@
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/semver-c2eba96080de773e.rmeta: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/backport.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/display.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/error.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/eval.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/identifier.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/impls.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/parse.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/serde.rs
+
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/semver-c2eba96080de773e.d: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/backport.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/display.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/error.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/eval.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/identifier.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/impls.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/parse.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/serde.rs
+
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/lib.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/backport.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/display.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/error.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/eval.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/identifier.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/impls.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/parse.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/semver-1.0.18/src/serde.rs:

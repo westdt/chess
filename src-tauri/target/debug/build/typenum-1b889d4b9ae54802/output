@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/build/typenum-1b889d4b9ae54802/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/build/typenum-1b889d4b9ae54802/out/op.rs

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MenuEntry","MenuItem","MenuUpdate","NativeImage","SystemTrayMenuEntry","SystemTrayMenuItem"],"struct":["AboutMetadata","CustomMenuItem","Menu","Submenu","SystemTrayMenu","SystemTraySubmenu"],"trait":["TrayHandle"],"type":["MenuHash","MenuId","MenuIdRef"]};

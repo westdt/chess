@@ -1,0 +1,1 @@
+{"rustc":7026624682662114238,"features":"","target":0,"profile":0,"path":0,"deps":[[11464408553993672728,"build_script_build",false,17963584323280160297]],"local":[{"RerunIfChanged":{"output":"debug/build/chess-8bc60893d81fc80e/output","paths":["tauri.conf.json"]}},{"RerunIfEnvChanged":{"var":"TAURI_CONFIG","val":null}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Builder","TauriPlugin"],"trait":["Plugin"],"type":["Result"]};

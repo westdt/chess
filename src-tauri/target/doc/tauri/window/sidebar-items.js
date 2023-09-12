@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MenuEvent","MenuHandle","Monitor","PlatformWebview","Window","WindowBuilder"]};

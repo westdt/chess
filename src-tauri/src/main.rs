@@ -1058,13 +1058,6 @@ async fn pick_square(window: Window, mut board: Board, square: String) {
                     update_react_selection(&window, &board, &square);
                 }
             } else {
-                // if color != to turn, then we can assume that the user is trying to move his piece. just need to check if the move is valid
-                if color == turn.opposite() {
-                    // square clicked has enemy piece. this can be considered an attack
-                } else {
-                    // square clicked is empty
-                }
-
 				match board.execute_move(&position, &selected_piece.position) {
 					Some(new_board) => {
 						board = new_board;

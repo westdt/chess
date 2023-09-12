@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_info_plist","get_launchd_plist"],"macro":["embed_info_plist","embed_info_plist_bytes","embed_launchd_plist","embed_launchd_plist_bytes"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["default_template"],"derive":["Template"],"struct":["Error","Options","RawValue","Serialized"],"trait":["DefaultTemplate","Template"],"type":["Result"]};

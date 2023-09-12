@@ -1,0 +1,11 @@
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/bitflags-64d66f20e2407499.rmeta: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/iter.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/parser.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/traits.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/public.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/internal.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/external.rs
+
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/bitflags-64d66f20e2407499.d: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/iter.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/parser.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/traits.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/public.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/internal.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/external.rs
+
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/lib.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/iter.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/parser.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/traits.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/public.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/internal.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bitflags-2.4.0/src/external.rs:

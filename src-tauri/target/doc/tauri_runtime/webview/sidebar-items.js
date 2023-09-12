@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WebviewAttributes"],"trait":["WindowBuilder","WindowBuilderBase"],"type":["WebviewIpcHandler"]};

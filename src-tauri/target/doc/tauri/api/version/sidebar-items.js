@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compare","is_compatible","is_greater","is_major","is_minor","is_patch"]};

@@ -1,0 +1,9 @@
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/tauri_codegen-a2f39b0b1749b839.rmeta: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/context.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/embedded_assets.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/mod.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/blake3_reference.rs
+
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/tauri_codegen-a2f39b0b1749b839.d: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/context.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/embedded_assets.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/mod.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/blake3_reference.rs
+
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/lib.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/context.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/embedded_assets.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/mod.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tauri-codegen-1.4.0/src/vendor/blake3_reference.rs:

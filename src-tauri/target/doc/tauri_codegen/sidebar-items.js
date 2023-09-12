@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CodegenConfigError","ConfigError"],"fn":["context_codegen","get_config"],"mod":["embedded_assets"],"struct":["Config","ContextData"]};

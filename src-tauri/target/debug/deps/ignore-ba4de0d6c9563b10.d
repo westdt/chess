@@ -1,0 +1,12 @@
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/ignore-ba4de0d6c9563b10.rmeta: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/default_types.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/dir.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/gitignore.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/overrides.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/pathutil.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/types.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/walk.rs
+
+/Users/westdt/Documents/GitHub/chess/src-tauri/target/debug/deps/ignore-ba4de0d6c9563b10.d: /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/lib.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/default_types.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/dir.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/gitignore.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/overrides.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/pathutil.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/types.rs /Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/walk.rs
+
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/lib.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/default_types.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/dir.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/gitignore.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/overrides.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/pathutil.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/types.rs:
+/Users/westdt/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ignore-0.4.20/src/walk.rs:

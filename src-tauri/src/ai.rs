@@ -23,7 +23,7 @@ impl ChessAI for MinimaxAI {
         let mut highest_score = -1000;
         let mut best_move = (Position::new(0), Position::new(0));
 
-        for i in 0..63 {
+        for i in 0..64 {
             let i = i as i8;
             let position = Position::new(i);
             if board.get(&position).color == board.ai {
@@ -95,7 +95,7 @@ impl MinimaxAI {
         if maximizing_player {
             let mut max_eval = -1000;
 
-            for i in 0..63 {
+            for i in 0..64 {
                 let i = i as i8;
                 let position = Position::new(i);
                 if board.get(&position).color == board.ai {
@@ -117,7 +117,7 @@ impl MinimaxAI {
         } else {
             let mut min_eval = 1000;
 
-            for i in 0..63 {
+            for i in 0..64 {
                 let i = i as i8;
                 let position = Position::new(i);
                 if board.get(&position).color == board.ai.opposite() {
